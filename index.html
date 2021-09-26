@@ -1,0 +1,159 @@
+<html>
+  <head>
+    <title>Chipyard Output Viewer</title>
+  </head>
+  <body>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #viewer {
+        height: 210px;
+        overflow-x: auto;
+      }
+      #hovercard {
+        width: 400px;
+        height: 300px;
+        border: solid 1px black;
+        box-shadow: black 0px 1px 6px -1px;
+        position: absolute;
+        display: none;
+        background-color: white;
+        z-index: 1;
+        padding: 4px;
+        font-family: monospace;
+      }
+      #rawtext {
+        font-family: monospace;
+        font-size: small;
+      }
+      div.ins {
+        height: 200px;
+        background-color: orange;
+        border: solid 1px darkred;
+        display: inline-block;
+        width: 60px;
+      }
+      span.clk {
+        display: block;
+        margin-bottom: 24px;
+      }
+      span.info {
+        font-family: monospace;
+      }
+    </style>
+
+    <strong>Select your Chipyard .out file</strong>
+    <input type="file" id="file">
+    <div id="viewer"></div>
+    <div id="hovercard"></div>
+    <div id="rawtext"></div>
+    <script>
+      function splitNominalLine(line) {
+        // Wow this is a long regular expression
+        // C0:         19 [1] pc=[0000000000010040] W[r10=0000000000010040][1] R[r 0=0000000000000000] R[r 0=0000000000000000] inst=[00000517] auipc   a0, 0x0
+        const regex = new RegExp(`C0:\\s*(\\d+)\\s\\[\\d\\]\\spc=\\[([\\d\\w]+)\\]\\sW\\[(r\\s?\\d+)=([\\d\\w]+)\\]\\[(\\d)\\]\\sR\\[(r\\s?\\d+)=([\\d\\w]+)]\\sR\\[(r\\s?\\d+)=([\\d\\w]+)]\\sinst=\\[([\\w]+)\\]\\s(\\w+)\\s*([\\w-]+)?,?\\s?([\\w-]+)?,?\\s?([\\w-]+)?,?\\s?([\\w-]+)?`)
+        const match = line.match(regex)
+        if (!match) {
+          console.warn('no match', line)
+          return null
+        }
+        const [
+          matcher, // 0
+          clock,
+          programCounter,
+          writeRegister, // 3
+          writeValue,
+          isWriteOccuring,
+          readRegister1, // 6
+          readValue1,
+          readRegsiter2,
+          readValue2, // 9
+          instructionOp,
+          instructionName,
+          insArgOut, // 12
+          insArgIn1,
+          insArgIn2,
+          insArgIn3, // 15
+        ] = match
+        return {
+          matcher, clock, programCounter, writeRegister, writeValue,
+          isWriteOccuring,
+          readRegister1, readValue1, readRegsiter2, readValue2,
+          instructionOp, instructionName, insArgOut, insArgIn1,
+          insArgIn2, insArgIn3,
+        }
+      }
+
+      function generateView(txt) {
+        let pgmLength = 1
+        document.getElementById('viewer').innerHTML = ''
+        const lines = txt.split('\n')
+        lines.forEach((line, index) => {
+          if (index < 8) return
+          const val = splitNominalLine(line)
+          if (val) {
+            const div = document.createElement('div')
+            div.classList.add('ins')
+            div.style.marginLeft = `${(val.clock - pgmLength - 1) * 60}px`
+            const clk = document.createElement('span')
+            clk.classList.add('clk')
+            clk.innerText = val.clock
+            const info = document.createElement('span')
+            info.classList.add('info')
+            info.innerHTML = `${val.instructionOp}<br>${val.instructionName}`
+            div.appendChild(clk)
+            div.appendChild(info)
+            div.onmouseover = (ev) => {
+              openHovercard(ev, val)
+            }
+            document.getElementById('viewer').appendChild(div)
+            pgmLength = val.clock
+          }
+        })
+        document.getElementById('viewer').style.width = `${pgmLength * 63}px`
+      }
+
+      function openHovercard(ev, val) {
+        console.log(val)
+        const div = document.getElementById('hovercard')
+        div.style.display = 'block'
+        div.style.left = Math.floor(ev.pageX / 60)*60 - 200
+        div.style.top = ev.pageY + 30
+        let htmlout = `Clock ${val.clock}<br><br>${val.instructionOp}<br>`
+        htmlout += `${val.instructionName}`
+        if (val.insArgOut) {
+          htmlout += `  ${val.insArgOut}`
+        }
+        if (val.insArgIn1) {
+          htmlout += `  ${val.insArgIn1}`
+        }
+        if (val.insArgIn2) {
+          htmlout += `  ${val.insArgIn2}`
+        }
+        if (val.insArgIn3) {
+          htmlout += `  ${val.insArgIn3}`
+        }
+        htmlout += `<br>PC: ${val.programCounter}`
+        if (val.isWriteOccuring) {
+          htmlout += `<br>Write to ${val.writeRegister} -- ${val.writeValue}`
+        }
+        htmlout += `<br>Read from ${val.readRegister1} -- ${val.readValue1}`
+        htmlout += `<br>Read from ${val.readRegsiter2} -- ${val.readValue2}`
+        div.innerHTML = htmlout
+      }
+
+      document.getElementById('file')
+        .addEventListener('change', function() {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const txt = reader.result
+            generateView(txt)
+            document.getElementById('rawtext').innerText = txt;
+          }
+          reader.readAsText(this.files[0]);
+        })
+    </script>
+  </body>
+</html>
