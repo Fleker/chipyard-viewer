@@ -1,0 +1,24 @@
+<div *ngIf="op">
+  <div class="dialog">
+    Clock {{ op.clock }}
+    <br>
+    <br>
+    {{ op.instructionOp }}
+    <br>
+    {{ op.instructionName }}
+    <span *ngIf="op.insArgOut">{{ op.insArgOut }}</span>
+    <span *ngIf="op.insArgIn1">{{ op.insArgIn1 }}</span>
+    <span *ngIf="op.insArgIn2">{{ op.insArgIn2 }}</span>
+    <span *ngIf="op.insArgIn3">{{ op.insArgIn3 }}</span>
+    <br>
+    PC: {{ op.programCounter }}
+    <span *ngIf="op.isWrite">
+      <br>
+      Write to {{ op.writeRegister }} -- {{ op.writeValue }}
+    </span>
+    <br>
+    Read from {{ op.readRegister1 }} -- {{ op.readValue1 }}
+    <br>
+    Read from {{ op.readRegister2 }} -- {{ op.readValue2 }}
+  </div>
+</div>

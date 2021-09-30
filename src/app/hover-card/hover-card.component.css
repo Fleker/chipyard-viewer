@@ -1,0 +1,14 @@
+:host {
+  position: absolute;
+}
+
+.dialog {
+  width: 400px;
+  height: 300px;
+  border: solid 1px black;
+  box-shadow: black 0px 1px 6px -1px;
+  background-color: white;
+  z-index: 1;
+  padding: 4px;
+  font-family: monospace;
+}

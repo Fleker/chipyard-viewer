@@ -1,0 +1,21 @@
+<div *ngIf="fileData" [style.width.px]="pgmLength * 63">
+  <div class="block-out" *ngFor="let line of lines; index as i">
+    <div class="block"
+        [style.marginLeft.px]="(line.clock - line.pgmLength - 1) * 60"
+        (mouseenter)="openHoverCard($event)"
+        [attr.data-index]="i">
+      <span class="clk">{{ line.clock }}</span>
+      <br>
+      <span class="info">
+        {{ line.instructionOp }}
+        <br>
+        {{ line.instructionName }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<chipyard-hover-card [op]="hoverOp"
+  [style.left.px]="hoverX"
+  [style.top.px]="hoverY">
+</chipyard-hover-card>

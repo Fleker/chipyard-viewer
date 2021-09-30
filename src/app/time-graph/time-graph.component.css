@@ -1,0 +1,20 @@
+div.block-out {
+  display: inline-block;
+}
+
+div.block {
+  height: 200px;
+  background-color: orange;
+  border: solid 1px darkred;
+  display: inline-block;
+  width: 60px;
+}
+
+span.clk {
+  display: block;
+  margin-bottom: 24px;
+}
+
+span.info {
+  font-family: monospace;
+}
