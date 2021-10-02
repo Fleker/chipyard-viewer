@@ -16,4 +16,4 @@ npm install
 
 # LICENSE
 
-This is licensed under `Apache-2.0`.
+This is licensed under `Apache-2.0`. See [LICENSE](LICENSE).
