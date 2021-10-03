@@ -1,0 +1,9 @@
+.passed {
+  background-color: #A5D6A7;
+  color: #1B5E20;
+}
+
+.failed {
+  background-color: #EF9A9A;
+  color: #B71C1C;
+}

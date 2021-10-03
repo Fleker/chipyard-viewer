@@ -1,0 +1,20 @@
+<div *ngIf="chipyardFile">
+  <div *ngIf="chipyardFile.hasPassed" class="passed">
+    <table>
+      <tr>
+        <td>✔️ (after {{chipyardFile.cycles}} cycles)</td>
+        <td><strong>{{chipyardFile.cpuClockFreqHz}}Hz</strong></td>
+        <td><strong>{{chipyardFile.totalStorageMb}}MB</strong></td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="!chipyardFile.hasPassed" class="failed">
+    <table>
+      <tr>
+        <td>❌ (after {{chipyardFile.cycles}} cycles)</td>
+        <td><strong>{{chipyardFile.cpuClockFreqHz}}Hz</strong></td>
+        <td><strong>{{chipyardFile.totalStorageMb}}MB</strong></td>
+      </tr>
+    </table>
+  </div>
+</div>
