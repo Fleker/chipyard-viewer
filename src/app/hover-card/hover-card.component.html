@@ -12,13 +12,25 @@
     <span *ngIf="op.insArgIn3">{{ op.insArgIn3 }}</span>
     <br>
     PC: {{ op.programCounter }}
-    <span *ngIf="op.isWrite">
-      <br>
-      Write to {{ op.writeRegister }} -- {{ op.writeValue }}
-    </span>
-    <br>
-    Read from {{ op.readRegister1 }} -- {{ op.readValue1 }}
-    <br>
-    Read from {{ op.readRegister2 }} -- {{ op.readValue2 }}
+    <table>
+      <tr *ngIf="op.isWrite">
+        <td>Write to</td>
+        <td>{{ op.writeRegister }}</td>
+        <td>---</td>
+        <td>{{ op.writeValue }}</td>
+      </tr>
+      <tr>
+        <td>Read from</td>
+        <td>{{ op.readRegister1 }}</td>
+        <td>---</td>
+        <td>{{ op.readValue1 }}</td>
+      </tr>
+      <tr>
+        <td>Read from</td>
+        <td>{{ op.readRegister2 }}</td>
+        <td>---</td>
+        <td>{{ op.readValue2 }}</td>
+      </tr>
+    </table>
   </div>
 </div>

@@ -5,14 +5,14 @@ export interface ChipyardFile {
 export interface ChipyardOutput {
   line: string
   clock: number
-  programCounter: number
+  programCounter: string
   writeRegister: string
-  writeValue: number
+  writeValue: string
   isWrite: boolean
   readRegister1: string
-  readValue1: number
+  readValue1: string
   readRegister2: string
-  readValue2: number
+  readValue2: string
   instructionOp: string
   instructionName: string
   insArgOut: string
@@ -53,14 +53,14 @@ export function parseNominalLine(line: string): ChipyardOutput | null {
   return {
     line,
     clock: parseInt(clock),
-    programCounter: parseInt(programCounter),
+    programCounter: programCounter,
     writeRegister: writeRegister,
-    writeValue: parseInt(writeValue),
+    writeValue: writeValue,
     isWrite: isWrite === '1',
     readRegister1: readRegister1,
-    readValue1: parseInt(readValue1),
+    readValue1: readValue1,
     readRegister2: readRegsiter2,
-    readValue2: parseInt(readValue2),
+    readValue2: readValue2,
     instructionOp: instructionOp,
     instructionName, insArgOut, insArgIn1,
     insArgIn2, insArgIn3,
