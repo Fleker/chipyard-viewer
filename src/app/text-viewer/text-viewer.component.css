@@ -1,3 +1,25 @@
+/* https://material.io/design/color/the-color-system.html#tools-for-picking-colors */
 :host {
   font-family: monospace;
+  color: #616161;
+}
+
+span.const {
+  color: #2E7D32;
+}
+
+span.str {
+  color: #EF6C00;
+}
+
+span.opout {
+  color: #C62828;
+}
+
+span.op {
+  color: #4527A0;
+}
+
+span.bool {
+  color: #1565C0;
 }

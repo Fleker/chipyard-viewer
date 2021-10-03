@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChipyardFile, parseFile } from '../file-parser';
 
 @Component({
   selector: 'chipyard-text-viewer',
@@ -7,9 +8,11 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 })
 export class TextViewerComponent implements OnChanges {
   @Input() fileData?: string
-  lines?: string[]
+  chipyardFile?: ChipyardFile
 
   ngOnChanges(changes: SimpleChanges) {
-    this.lines = changes.fileData.currentValue.split('\n')
+    const data = changes.fileData.currentValue
+    if (!data) return
+    this.chipyardFile = parseFile(data)
   }
 }

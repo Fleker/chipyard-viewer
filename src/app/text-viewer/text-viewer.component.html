@@ -1,6 +1,36 @@
-<div *ngIf="fileData">
-  <span *ngFor="let line of lines">
-    {{ line }}
-    <br>
-  </span>
+<div *ngIf="chipyardFile">
+  using random seed <span class="const">{{chipyardFile.randomSeed}}</span><br>
+  This emulator compiled with JTAG Remote Bitbang client. To enable, use +jtag_rbb_enable=1.<br>
+  Listening on port <span class="const">{{chipyardFile.port}}</span><br>
+  == Loading device model file '<span class="str">{{chipyardFile.deviceModelFile}}</span>' ==<br>
+  == Loading system model file '<span class="str">{{chipyardFile.systemModelFile}}</span>' ==<br>
+  ===== MemorySystem <span class="const">{{chipyardFile.memorySystem}}</span> =====<br>
+  CH. <span class="const">{{chipyardFile.channel}}</span> TOTAL_STORAGE : <span class="const">{{chipyardFile.totalStorageMb}}</span>MB | <span class="const">{{chipyardFile.ranks}}</span> Ranks | <span class="const">{{chipyardFile.devicesPerRank}}</span> Devices per rank<br>
+  DRAMSim2 Clock Frequency =<span class="const">{{chipyardFile.dramClockFreqHz}}</span>Hz, CPU Clock Frequency=<span class="const">{{chipyardFile.cpuClockFreqHz}}</span>Hz<br>
+  <table>
+    <tr *ngFor="let op of chipyardFile.operations">
+      <td>C0:</td>
+      <td><span class="const">{{op.clock}}</span></td>
+      <td>[1]</td>
+      <td>pc=[<span class="str">{{op.programCounter}}</span>]</td>
+      <td>W[<span class="const">{{op.writeRegister}}</span>=<span class="const">{{op.writeValue}}</span>]
+        [<span *ngIf="op.isWrite" class="bool">1</span>
+        <span *ngIf="!op.isWrite" class="bool">0</span>]
+      </td>
+      <td>R[<span class="const">{{op.readRegister1}}</span>=<span class="const">{{op.readValue1}}</span>]</td>
+      <td>R[<span class="const">{{op.readRegister2}}</span>=<span class="const">{{op.readValue2}}</span>]</td>
+      <td>inst=[<span class="const">{{op.instructionOp}}</span>]</td>
+      <td><span class="str">{{op.instructionName}}</span></td>
+      <td>
+        <span class="opout">{{op.insArgOut}}</span>
+        <span *ngIf="op.insArgIn1" class="op">, {{op.insArgIn1}}</span>
+        <span *ngIf="op.insArgIn2" class="op">, {{op.insArgIn2}}</span>
+        <span *ngIf="op.insArgIn3" class="op">, {{op.insArgIn3}}</span>
+      </td>
+    </tr>
+  </table>
+  ***
+    <span *ngIf="chipyardFile.hasPassed" class="bool">PASSED</span>
+    <span *ngIf="!chipyardFile.hasPassed" class="bool">FAILED</span>
+  *** Completed after <span class="const">{{chipyardFile.cycles}}</span> cycles
 </div>

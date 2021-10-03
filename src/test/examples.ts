@@ -11,6 +11,25 @@ test('can load all files', async t => {
   t.pass()
 })
 
+test('parse .out metadata', async t => {
+  const sampleFile = await fs.readFileSync('./examples/rv64um-p-remw.out', 'utf-8')
+  const chipyardFile = parseFile(sampleFile)
+  t.is(chipyardFile.randomSeed, 1632264116)
+  t.is(chipyardFile.port, 44873)
+  t.is(chipyardFile.deviceModelFile, '/home/fleker/Desktop/chipyard/generators/testchipip/src/main/resources/dramsim2_ini/DDR3_micron_64M_8B_x4_sg15.ini')
+  t.is(chipyardFile.systemModelFile, '/home/fleker/Desktop/chipyard/generators/testchipip/src/main/resources/dramsim2_ini/system.ini')
+  t.is(chipyardFile.memorySystem, 0)
+  t.is(chipyardFile.channel, 0)
+  t.is(chipyardFile.totalStorageMb, 4096)
+  t.is(chipyardFile.ranks, 1)
+  t.is(chipyardFile.devicesPerRank, 16)
+  t.is(chipyardFile.dramClockFreqHz, 666666666)
+  t.is(chipyardFile.cpuClockFreqHz, 100000000)
+
+  t.is(chipyardFile.hasPassed, true)
+  t.is(chipyardFile.cycles, 12767)
+})
+
 test('parse rv64mi-p-access.out', async t => {
   const sampleFile = await fs.readFileSync('./examples/rv64mi-p-access.out', 'utf-8')
   const chipyardFile = parseFile(sampleFile)
