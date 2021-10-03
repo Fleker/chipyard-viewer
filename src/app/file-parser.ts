@@ -73,10 +73,10 @@ export function parseFile(rawFile: string): ChipyardFile {
   let pgmLength = 0
   const lines = rawFile.split('\n')
   lines.forEach((line, index) => {
-    if (index < 8 - 2) return
+    if (index < 8) return
+    if (index >= lines.length - 2) return
     const v = parseNominalLine(line)
     if (v !== null) {
-      console.log(index, v.pgmLength, pgmLength)
       v.pgmLength = pgmLength
       pgmLength = v.clock
       out.push(v)
