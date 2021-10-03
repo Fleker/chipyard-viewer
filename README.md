@@ -4,6 +4,15 @@ An online app that can visualize Chipyard-generated `.out` files.
 
 It is available in hosted form online: https://felker.dev/chipyard-viewer
 
+![demo.png](demo.png)
+
+## Features
+
+* Show Pass/Fail state clearly
+* Visualize clock cycles with gaps
+* Hover over each operation to see operation details
+* View file text with syntax highlighting
+
 ## Setup
 
 ### Prerequisites
