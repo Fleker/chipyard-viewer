@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges, HostBinding } from '@angular/core';
 import { ChipyardOutput } from '../file-parser';
 
 @Component({
@@ -6,10 +6,11 @@ import { ChipyardOutput } from '../file-parser';
   templateUrl: './hover-card.component.html',
   styleUrls: ['./hover-card.component.css']
 })
-export class HoverCardComponent implements OnChanges {
+export class HoverCardComponent implements OnInit {
   @Input() op?: ChipyardOutput
+  @HostBinding('class.dark') darkTheme: boolean = false
 
-  ngOnChanges(changes: SimpleChanges) {
-
+  ngOnInit() {
+    this.darkTheme = document.getElementsByTagName('body')[0].classList.contains('dark')
   }
 }

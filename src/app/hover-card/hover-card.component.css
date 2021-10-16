@@ -12,3 +12,7 @@
   padding: 4px;
   font-family: monospace;
 }
+
+:host.dark .dialog {
+  background-color: #424242;
+}
