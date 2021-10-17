@@ -1,0 +1,12 @@
+nav {
+  border-bottom: solid 1px black;
+  margin: 0;
+  padding: 0;
+  padding-left: 16px;
+  padding-top: 4px;
+  padding-bottom: 2px;
+}
+
+strong {
+  padding-right: 16px;
+}

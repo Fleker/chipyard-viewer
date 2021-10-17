@@ -1,6 +1,4 @@
-<strong>Select your Chipyard .out file</strong>
-<br><br>
-<input type="file" #file accept=".out">
+<app-menu #menu></app-menu>
 
 <strong>Theme</strong>
 <select #theme [value]="appTheme" (change)="updateTheme($event, theme.value)">
@@ -8,6 +6,11 @@
   <option>light</option>
   <option>dark</option>
 </select>
+
+<div class="placeholder" #placeholder>
+  <h1>Welcome to the Chipyard Viewer</h1>
+  <h2>Load a Chipyard file to get started</h2>
+</div>
 
 <chipyard-metadata-banner [fileData]="fileData"></chipyard-metadata-banner>
 <chipyard-time-graph [fileData]="fileData"></chipyard-time-graph>

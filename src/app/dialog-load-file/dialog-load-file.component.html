@@ -1,0 +1,11 @@
+<button (click)="openDialog()">Load File</button>
+
+<dialog #dialog>
+  <strong>Select your Chipyard .out file</strong>
+
+  <br><br>
+  <input type="file" #file accept=".out">
+
+  <br><br><br><br><br>
+  <button (click)="closeDialog()">Close</button>
+</dialog>
