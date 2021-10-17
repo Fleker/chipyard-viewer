@@ -17,11 +17,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   fileData: string = ''
   title = 'app';
   settings: SettingsService = new SettingsService()
-  appTheme?: TSettingsTheme
 
   ngOnInit() {
-    this.appTheme = this.settings.get('theme')
-    this.changeDarkTheme(this.appTheme!)
+    this.settings.listen('theme').subscribe(theme => {
+      this.changeDarkTheme(theme)
+    })
   }
 
   ngAfterViewInit() {
@@ -31,11 +31,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       const placeholder = this.placeholder?.nativeElement as HTMLElement
       placeholder.classList.add('hidden')
     })
-  }
-
-  updateTheme($event: unknown, value: string) {
-    this.settings.set('theme', value)
-    this.changeDarkTheme(value as TSettingsTheme)
   }
 
   changeDarkTheme(setting: TSettingsTheme) {

@@ -10,3 +10,7 @@ nav {
 strong {
   padding-right: 16px;
 }
+
+dialog-load-file, dialog-settings {
+  padding-right: 8px;
+}

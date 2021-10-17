@@ -1,19 +1,28 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
+import { SettingsService, TSettingsTheme } from '../settings.service';
 
 @Component({
   selector: 'dialog-load-file',
   templateUrl: './dialog-load-file.component.html',
   styleUrls: ['./dialog-load-file.component.css']
 })
-export class DialogLoadFileComponent implements AfterViewInit {
+export class DialogLoadFileComponent implements OnInit, AfterViewInit {
   @ViewChild('dialog') dialog?: ElementRef;
   @ViewChild('file') file?: ElementRef;
+  @HostBinding('class.dark') darkTheme: boolean = false
   fileData: string = ''
   fileDataSubject: Subject<string>
+  settings: SettingsService = new SettingsService()
 
   constructor() {
     this.fileDataSubject = new Subject<string>()
+  }
+
+  ngOnInit() {
+    this.settings.listen('theme').subscribe((theme: TSettingsTheme) => {
+      this.darkTheme = theme === 'dark'
+    })
   }
 
   openDialog() {

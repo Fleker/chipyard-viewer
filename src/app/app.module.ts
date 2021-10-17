@@ -8,6 +8,7 @@ import { HoverCardComponent } from './hover-card/hover-card.component';
 import { MetadataBannerComponent } from './metadata-banner/metadata-banner.component';
 import { AppMenuComponent } from './app-menu/app-menu.component';
 import { DialogLoadFileComponent } from './dialog-load-file/dialog-load-file.component';
+import { DialogSettingsComponent } from './dialog-settings/dialog-settings.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DialogLoadFileComponent } from './dialog-load-file/dialog-load-file.com
     HoverCardComponent,
     MetadataBannerComponent,
     AppMenuComponent,
-    DialogLoadFileComponent
+    DialogLoadFileComponent,
+    DialogSettingsComponent
   ],
   imports: [
     BrowserModule

@@ -1,0 +1,19 @@
+<button (click)="openDialog()">Settings</button>
+
+<dialog #dialog>
+  <strong>Theme</strong>
+  <br>
+  <select #theme [value]="appTheme" (change)="updateTheme($event, theme.value)">
+    <option>default</option>
+    <option>light</option>
+    <option>dark</option>
+  </select>
+
+  <br><br><br><br><br>
+  <button (click)="closeDialog()">Close</button>
+
+  <br><br>
+  <small>All settings are stored persistently in browser
+    <code>localStorage</code>.
+  </small>
+</dialog>

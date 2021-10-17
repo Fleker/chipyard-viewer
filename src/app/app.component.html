@@ -1,12 +1,5 @@
 <app-menu #menu></app-menu>
 
-<strong>Theme</strong>
-<select #theme [value]="appTheme" (change)="updateTheme($event, theme.value)">
-  <option>default</option>
-  <option>light</option>
-  <option>dark</option>
-</select>
-
 <div class="placeholder" #placeholder>
   <h1>Welcome to the Chipyard Viewer</h1>
   <h2>Load a Chipyard file to get started</h2>

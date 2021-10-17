@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges, HostBinding } from '@angular/core';
 import { ChipyardOutput } from '../file-parser';
+import { SettingsService, TSettingsTheme } from '../settings.service';
 
 @Component({
   selector: 'chipyard-hover-card',
@@ -9,8 +10,11 @@ import { ChipyardOutput } from '../file-parser';
 export class HoverCardComponent implements OnInit {
   @Input() op?: ChipyardOutput
   @HostBinding('class.dark') darkTheme: boolean = false
+  settings: SettingsService = new SettingsService()
 
   ngOnInit() {
-    this.darkTheme = document.getElementsByTagName('body')[0].classList.contains('dark')
+    this.settings.listen('theme').subscribe((theme: TSettingsTheme) => {
+      this.darkTheme = theme === 'dark'
+    })
   }
 }
