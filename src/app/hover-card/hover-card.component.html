@@ -32,5 +32,11 @@
         <td>{{ op.readValue2 }}</td>
       </tr>
     </table>
+    <div *ngIf="opInfo">
+      <br>
+      <strong>{{opInfo.title}}</strong>
+      <br>
+      <span>{{opInfo.description}}</span>
+    </div>
   </div>
 </div>
