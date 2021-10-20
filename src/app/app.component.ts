@@ -3,6 +3,8 @@ import { TimeGraphComponent } from './time-graph/time-graph.component';
 import { TextViewerComponent } from './text-viewer/text-viewer.component';
 import { SettingsService, TSettingsTheme } from './settings.service';
 import { AppMenuComponent } from './app-menu/app-menu.component';
+import { FileParserService } from './file-parser.service';
+import { ChipyardFile } from './file-parser';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +16,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('text') text?: TextViewerComponent
   @ViewChild('menu') menu?: AppMenuComponent
   @ViewChild('placeholder') placeholder?: ElementRef
-  fileData: string = ''
   title = 'app';
-  settings: SettingsService = new SettingsService()
+  chipyardFile?: ChipyardFile
+
+  constructor(
+    private readonly settings: SettingsService,
+    private readonly parser: FileParserService,
+  ) {}
 
   ngOnInit() {
     this.settings.listen('theme').subscribe(theme => {
@@ -25,12 +31,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.menu?.btnFile?.getFiledata().subscribe(fileData => {
-      this.fileData = fileData
-      // Hide placeholder once any text loads
-      const placeholder = this.placeholder?.nativeElement as HTMLElement
-      placeholder.classList.add('hidden')
-    })
+    this.parser.chipyardSubject.subscribe(next => this.chipyardFile = next)
   }
 
   changeDarkTheme(setting: TSettingsTheme) {

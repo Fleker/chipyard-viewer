@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
+import { FileParserService } from '../file-parser.service';
 import { SettingsService, TSettingsTheme } from '../settings.service';
 
 @Component({
@@ -11,13 +12,11 @@ export class DialogLoadFileComponent implements OnInit, AfterViewInit {
   @ViewChild('dialog') dialog?: ElementRef;
   @ViewChild('file') file?: ElementRef;
   @HostBinding('class.dark') darkTheme: boolean = false
-  fileData: string = ''
-  fileDataSubject: Subject<string>
-  settings: SettingsService = new SettingsService()
 
-  constructor() {
-    this.fileDataSubject = new Subject<string>()
-  }
+  constructor(
+    private readonly settings: SettingsService,
+    private readonly fileParserService: FileParserService,
+  ) {}
 
   ngOnInit() {
     this.settings.listen('theme').subscribe((theme: TSettingsTheme) => {
@@ -40,15 +39,11 @@ export class DialogLoadFileComponent implements OnInit, AfterViewInit {
     fileInput.addEventListener('change', () => {
       const reader = new FileReader();
       reader.onload = () => {
-        this.fileData = reader.result as string
-        this.fileDataSubject.next(this.fileData)
+        const fileData = reader.result as string
+        this.fileParserService.parseFile(fileData)
         this.closeDialog()
       }
       reader.readAsText(fileInput.files![0]);
     })
-  }
-
-  getFiledata() {
-    return this.fileDataSubject
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ChipyardOutput, parseFile } from '../file-parser';
+import { ChipyardFile, ChipyardOutput, parseFile } from '../file-parser';
 
 @Component({
   selector: 'chipyard-time-graph',
@@ -7,7 +7,7 @@ import { ChipyardOutput, parseFile } from '../file-parser';
   styleUrls: ['./time-graph.component.css']
 })
 export class TimeGraphComponent implements OnChanges {
-  @Input() fileData?: string
+  @Input() chipyardFile?: ChipyardFile
   lines?: ChipyardOutput[]
   pgmLength: number = 1
   // for hovercard
@@ -16,9 +16,9 @@ export class TimeGraphComponent implements OnChanges {
   hoverY: number = 0
 
   ngOnChanges(changes: SimpleChanges) {
-    const data = changes.fileData.currentValue
+    const data = changes.chipyardFile.currentValue as ChipyardFile
     if (!data) return
-    const {operations} = parseFile(data)
+    const {operations} = data
     this.lines = operations
     this.pgmLength = this.lines[this.lines.length - 1].clock
   }

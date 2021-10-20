@@ -6,13 +6,6 @@ import { ChipyardFile, parseFile } from '../file-parser';
   templateUrl: './text-viewer.component.html',
   styleUrls: ['./text-viewer.component.css']
 })
-export class TextViewerComponent implements OnChanges {
-  @Input() fileData?: string
-  chipyardFile?: ChipyardFile
-
-  ngOnChanges(changes: SimpleChanges) {
-    const data = changes.fileData.currentValue
-    if (!data) return
-    this.chipyardFile = parseFile(data)
-  }
+export class TextViewerComponent {
+  @Input() chipyardFile?: ChipyardFile
 }
