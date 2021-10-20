@@ -16,3 +16,7 @@
 :host.dark .dialog {
   background-color: #424242;
 }
+
+span.oparg {
+  margin-right: 8px;
+}

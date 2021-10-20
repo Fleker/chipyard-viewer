@@ -6,10 +6,10 @@
     {{ op.instructionOp }}
     <br>
     {{ op.instructionName }}
-    <span *ngIf="op.insArgOut">{{ op.insArgOut }}</span>
-    <span *ngIf="op.insArgIn1">{{ op.insArgIn1 }}</span>
-    <span *ngIf="op.insArgIn2">{{ op.insArgIn2 }}</span>
-    <span *ngIf="op.insArgIn3">{{ op.insArgIn3 }}</span>
+    <span class="oparg" *ngIf="op.insArgOut">{{ op.insArgOut }}</span>
+    <span class="oparg" *ngIf="op.insArgIn1">{{ op.insArgIn1 }}</span>
+    <span class="oparg" *ngIf="op.insArgIn2">{{ op.insArgIn2 }}</span>
+    <span class="oparg" *ngIf="op.insArgIn3">{{ op.insArgIn3 }}</span>
     <br>
     PC: {{ op.programCounter }}
     <table>
