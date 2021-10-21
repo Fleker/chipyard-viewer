@@ -1,0 +1,9 @@
+:host.dark dialog {
+  background: #424242 !important;
+  color: #efefef !important;
+}
+
+table {
+  padding-right: 48px;
+  font-family: monospace;
+}

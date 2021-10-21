@@ -9,10 +9,11 @@ import { SettingsService, TSettingsTheme } from '../settings.service';
 export class DialogSettingsComponent implements OnInit {
   @ViewChild('dialog') dialog?: ElementRef;
   @HostBinding('class.dark') darkTheme: boolean = false
-  settings: SettingsService = new SettingsService()
   appTheme?: TSettingsTheme
 
-  constructor() { }
+  constructor(
+    private settings: SettingsService,
+  ) { }
 
   openDialog() {
     const dialog = this.dialog?.nativeElement as any

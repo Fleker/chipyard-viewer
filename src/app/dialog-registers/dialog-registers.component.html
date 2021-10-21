@@ -1,0 +1,21 @@
+<button (click)="openDialog()">Register Viewer</button>
+
+<dialog #dialog>
+  <input type="number" min="1" max="{{numCycles}}" (input)="showRegistersAt($event)" value="{{numCycles}}" />
+  <br><br>
+  <table>
+    <tr *ngFor="let val of registerValues; let i = index">
+      <td>
+        r{{i}}
+      </td>
+      <td>
+        -
+      </td>
+      <td>
+        {{val}}
+      </td>
+    </tr>
+  </table>
+  <br><br>
+  <button (click)="closeDialog()">Close</button>
+</dialog>

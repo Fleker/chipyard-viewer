@@ -9,6 +9,7 @@ import { MetadataBannerComponent } from './metadata-banner/metadata-banner.compo
 import { AppMenuComponent } from './app-menu/app-menu.component';
 import { DialogLoadFileComponent } from './dialog-load-file/dialog-load-file.component';
 import { DialogSettingsComponent } from './dialog-settings/dialog-settings.component';
+import { DialogRegistersComponent } from './dialog-registers/dialog-registers.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DialogSettingsComponent } from './dialog-settings/dialog-settings.compo
     MetadataBannerComponent,
     AppMenuComponent,
     DialogLoadFileComponent,
-    DialogSettingsComponent
+    DialogSettingsComponent,
+    DialogRegistersComponent
   ],
   imports: [
     BrowserModule
